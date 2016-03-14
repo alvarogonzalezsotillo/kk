@@ -1,6 +1,7 @@
 package miweb;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Cliente{
@@ -35,6 +36,7 @@ public class Cliente{
     }
 
     @Column
+    @Size(min = 0, max=20)
     public String getApellidos(){
         return apellidos;
     }

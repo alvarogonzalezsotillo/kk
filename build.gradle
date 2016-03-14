@@ -11,13 +11,26 @@ task wrapper( type: Wrapper ){
 }
 
 dependencies{
+    // JUNIT
     testCompile 'junit:junit:4.10'
     
+    // HIBERNATE
     compile 'org.hibernate:hibernate-core:4.0.1.Final'
     compile 'org.hibernate:hibernate-entitymanager:4.0.1.Final'
     compile 'org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final'
     
+    // VALIDATOR
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.2.3.Final'
+    
+    // BASE DE DATOS DERBY
     compile 'org.apache.derby:derby:10.12.1.1'
+    
+    // JSF
+    compile group: 'javax', name: 'javaee-api', version: '7.0'
+    compile group: 'org.glassfish', name: 'javax.faces', version: '2.2.8'
+    
+    // PRIMEFACES
+    compile group: 'org.primefaces', name: 'primefaces', version: '4.0'
     
     
 }

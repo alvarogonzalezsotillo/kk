@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./layout.xhtml">
+        <ui:define name="title">Lista de clientes</ui:define>
+
+        <ui:define name="content">
+
+            <p:growl id="growl" life="2000" />
+
+            <h:form id="form1_id">
+
+
+                <p:commandButton value="Nuevo cliente" actionListener="#{clientesView.nuevoClienteAction}" oncomplete="editarUsuarioDialog.show()" update="tabla_id editarUsuarioDialog_id" />
+
+                <p:commandButton value="Editar cliente seleccionado" actionListener="#{clientesView.editarClienteSeleccionadoAction}" oncomplete="editarUsuarioDialog.show()" update="tabla_id editarUsuarioDialog_id" />
+
+                <p:commandButton value="Borrar cliente seleccionado" actionListener="#{clientesView.borrarClienteSeleccionadoAction}" update="tabla_id editarUsuarioDialog_id" />
+
+
+                <p:dataTable id="tabla_id" var="cliente" widgetVar="tabla" value="#{clientesView.clientes}" paginator="true" selection="#{clientesView.selectedCliente}" rows="10" rowKey="#{cliente.idCliente}" selectionMode="single" paginatorPosition="bottom">
+
+
+
+                    <f:facet name="header">Clientes</f:facet>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID" />
+                        </f:facet>
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{cliente.idCliente}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:outputText value="#{cliente.idCliente}" />
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre" />
+                        </f:facet>
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{cliente.nombre}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{cliente.nombre}" />
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                </p:dataTable>
+
+                <p:dialog id="editarUsuarioDialog_id" header="Modificar datos de usuario" widgetVar="editarUsuarioDialog" modal="TRUE">
+                    <h:messages errorClass="errorMessage" infoClass="infoMessage" warnClass="warnMessage" />
+                    <h:panelGrid id="edituserform" columns="3">
+                        <h:outputText value="Identificador:" />
+                        <h:outputText value="#{clientesView.editedCliente.idCliente}" style="font-weight: bold;" />
+                        <h:message></h:message>
+
+                        <h:outputText value="Nombre:" />
+                        <p:inputText id="usuario_id" value="#{clientesView.editedCliente.nombre}">
+                        </p:inputText>
+                        <h:message for="usuario_id" id="nombreError" errorClass="error"/>
+
+
+
+                        <h:outputText value="Apellidos:" />
+                        <p:inputText id="apellidos" value="#{clientesView.editedCliente.apellidos}">
+                            <f:ajax render="apellidosError" />
+                        </p:inputText>
+                        <h:message for="apellidos" id="apellidosError" errorClass="error"/>
+                    </h:panelGrid>
+
+                    <p:panel>
+                        <p:commandButton value="Hecho" actionListener="#{clientesView.salvarClienteAction}" update="tabla_id" onsuccess="editarUsuarioDialog.hide()" />
+                    </p:panel>
+
+                </p:dialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+    </html>
