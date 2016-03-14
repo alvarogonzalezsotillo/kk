@@ -1,0 +1,27 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+repositories{
+    mavenCentral()
+}
+
+task wrapper( type: Wrapper ){
+    gradleVersion = '2.4'
+}
+
+dependencies{
+    testCompile 'junit:junit:4.10'
+    
+    compile 'org.hibernate:hibernate-core:4.0.1.Final'
+    compile 'org.hibernate:hibernate-entitymanager:4.0.1.Final'
+    compile 'org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final'
+    
+    compile 'org.apache.derby:derby:10.12.1.1'
+    
+    
+}
+
+jettyRunWar{
+    contextPath = '/'
+}
